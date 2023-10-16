@@ -31,40 +31,6 @@ public class GoalsController {
         }
     }
 
-//    @PostMapping("/goals")
-//    public ResponseEntity<String> createGoal(@RequestBody GoalsModel goalsModel) {
-//        GoalsModel createdGoal = goalsService.createGoal(goalsModel);
-//        if (createdGoal != null) {
-//            return ResponseEntity.created(null).build();
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
-
-
-
-//    @GetMapping("/goals")
-//    public ResponseEntity<?> getAllGoals(){
-//        List<GoalsModel> goals = goalsService.getAllGoals();
-//        if (goals.isEmpty()) {
-//            String errorMessage = "No Goals Found in the Mongo Database, Please add some goals and try again!";
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorMessage);
-//        }
-//
-//        StringBuilder successMessage = new StringBuilder("Found Goals!\n");
-//        for (GoalsModel goal : goals) {
-//            successMessage.append("\nId: ").append(goal.getId())
-//                    .append("\nName: ").append(goal.getName())
-//                    .append("\nGoal: ").append(goal.getGoal())
-//                    .append("\nAge: ").append(goal.getAge())
-//                    .append("\nCoding Language: ").append(goal.getCodingLanguage())
-//                    .append("\n");
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(successMessage.toString());
-//    }
-
     @GetMapping("/goals")
     public ResponseEntity<List<GoalsModel>> getGoals() {
         List<GoalsModel> goals = goalsService.getAllGoals();
@@ -112,3 +78,45 @@ public class GoalsController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+//    @PostMapping("/goals")
+//    public ResponseEntity<String> createGoal(@RequestBody GoalsModel goalsModel) {
+//        GoalsModel createdGoal = goalsService.createGoal(goalsModel);
+//        if (createdGoal != null) {
+//            return ResponseEntity.created(null).build();
+//        } else {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
+
+
+
+//    @GetMapping("/goals")
+//    public ResponseEntity<?> getAllGoals(){
+//        List<GoalsModel> goals = goalsService.getAllGoals();
+//        if (goals.isEmpty()) {
+//            String errorMessage = "No Goals Found in the Mongo Database, Please add some goals and try again!";
+//            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorMessage);
+//        }
+//
+//        StringBuilder successMessage = new StringBuilder("Found Goals!\n");
+//        for (GoalsModel goal : goals) {
+//            successMessage.append("\nId: ").append(goal.getId())
+//                    .append("\nName: ").append(goal.getName())
+//                    .append("\nGoal: ").append(goal.getGoal())
+//                    .append("\nAge: ").append(goal.getAge())
+//                    .append("\nCoding Language: ").append(goal.getCodingLanguage())
+//                    .append("\n");
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(successMessage.toString());
+//    }
