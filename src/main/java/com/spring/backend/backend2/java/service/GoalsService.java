@@ -48,4 +48,8 @@ public class GoalsService {
     public void deleteAll(){
         goalsRepository.deleteAll();
     }
+    public boolean existsById(String id) {
+        return goalsRepository.existsById(id);
+    }
+
 }

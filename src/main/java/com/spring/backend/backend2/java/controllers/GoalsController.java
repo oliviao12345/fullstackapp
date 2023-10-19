@@ -42,7 +42,7 @@ public class GoalsController {
 
 
     @GetMapping("/goals/{codingLanguage}")
-    public ResponseEntity<?> getGoalByCodingLanguage(@PathVariable String codingLanguage){
+    public ResponseEntity<?> getGoalByCodingLanguage(@PathVariable String codingLanguage) {
         GoalsModel goals = goalsService.getGoalByCodingLanguage(codingLanguage);
         if (goals == null) {
             String errorMessage = "Could not find user with Coding Language Specified as "
@@ -51,16 +51,16 @@ public class GoalsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         String successMessage = "Found the Following User(s) who have specified " + codingLanguage + " as their Coding Language!"
-                +     "\nId: " + goals.getId() +
-                "\nName: " +  goals.getName() +
-                "\nGoal: " +  goals.getGoal() +
-                "\nAge: "+ goals.getAge() +
-                "\nCoding Language: " +  goals.getCodingLanguage();
+                + "\nId: " + goals.getId() +
+                "\nName: " + goals.getName() +
+                "\nGoal: " + goals.getGoal() +
+                "\nAge: " + goals.getAge() +
+                "\nCoding Language: " + goals.getCodingLanguage();
         return ResponseEntity.status(HttpStatus.OK).body(successMessage);
     }
 
     @GetMapping("/goals/id/{id}")
-    public ResponseEntity<?> getGoalsById(@PathVariable String id){
+    public ResponseEntity<?> getGoalsById(@PathVariable String id) {
         GoalsModel goals = goalsService.getGoalsById(id);
         if (goals == null) {
             String errorMessage = "Could not find ID: " + id +
@@ -70,12 +70,45 @@ public class GoalsController {
         }
         String successMessage = "Found User with ID: " + id + "\n\nUser goal details are: " +
                 "\nId: " + goals.getId() +
-                "\nName: " +  goals.getName() +
-                "\nGoal: " +  goals.getGoal() +
-                "\nAge: "+ goals.getAge() +
-                "\nCoding Language: " +  goals.getCodingLanguage();
+                "\nName: " + goals.getName() +
+                "\nGoal: " + goals.getGoal() +
+                "\nAge: " + goals.getAge() +
+                "\nCoding Language: " + goals.getCodingLanguage();
         return ResponseEntity.status(HttpStatus.OK).body(successMessage);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable String id) {
+        if (!goalsService.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID does not exist, " +
+                    "Please check your database and try again!");
+        }
+            try {
+                goalsService.deleteById(id);
+                return ResponseEntity.ok("Successfully deleted the goal with ID: " + id);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Failed to delete the goal with ID: " + id);
+            }
+        }
+
+        @DeleteMapping("/delete/all")
+    public ResponseEntity<String> deleteAllGoals(){
+        try {
+            List<GoalsModel> goals = goalsService.getAllGoals();
+
+            if(goals.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Goals to Delete, Please Add Some Goals and Try Again!");
+
+            }
+            goalsService.deleteAll();
+            return ResponseEntity.ok("All Goals Deleted!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete all goals");
+        }
+
+        }
 
 }
 

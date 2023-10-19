@@ -33,5 +33,7 @@ public interface GoalsRepository extends MongoRepository<GoalsModel, String> {
     // Delete all goals
     void deleteAll();
 
+    boolean existsById(String id);
+
 }
 
